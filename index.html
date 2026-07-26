@@ -7,6 +7,23 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     </head>
     <body>
+        <script>
+            // Agrega esto solo si notas que en algún navegador específico no se mueve
+            if (!CSS.supports("animation-timeline", "scroll()")) {
+                window.addEventListener("scroll", () => {
+                    const pixels =
+                        window.pageYOffset ||
+                        document.documentElement.scrollTop;
+                    const height =
+                        document.documentElement.scrollHeight -
+                        document.documentElement.clientHeight;
+                    const percentage = pixels / height;
+                    document.getElementById("progress").style.transform =
+                        `scaleX(${percentage})`;
+                });
+            }
+        </script>
+        <div id="progress"></div>
         <div id="app">
             <header class="site-header">
                 <div class="site-header-inner">
@@ -27,17 +44,29 @@
                             aria-label="Cambiar modo claro/oscuro"
                             title="Modo claro/oscuro"
                         >
-                            <img src="/src/assets/sun.svg" alt="" class="theme-icon theme-icon--sun" />
-                            <img src="/src/assets/moon.svg" alt="" class="theme-icon theme-icon--moon" />
+                            <img
+                                src="/src/assets/sun.svg"
+                                alt=""
+                                class="theme-icon theme-icon--sun"
+                            />
+                            <img
+                                src="/src/assets/moon.svg"
+                                alt=""
+                                class="theme-icon theme-icon--moon"
+                            />
                         </button>
 
                         <div class="timeline-category-select">
                             <select aria-label="Filtrar por categoría">
                                 <option value="">Categorías</option>
                                 <option value="__article__">Artículos</option>
-                                <option value="institucional">Institucional</option>
+                                <option value="institucional">
+                                    Institucional
+                                </option>
                                 <option value="comunidad">Comunidad</option>
-                                <option value="internacional">Internacional</option>
+                                <option value="internacional">
+                                    Internacional
+                                </option>
                                 <option value="glam">GLAM</option>
                                 <option value="educacion">Educación</option>
                                 <option value="datos">Datos</option>
@@ -50,7 +79,13 @@
                                 placeholder="Buscar hito..."
                                 aria-label="Buscar hito"
                             />
-                            <button class="search-clear" type="button" aria-label="Limpiar búsqueda">×</button>
+                            <button
+                                class="search-clear"
+                                type="button"
+                                aria-label="Limpiar búsqueda"
+                            >
+                                ×
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -59,16 +94,34 @@
             <main class="site-main">
                 <section class="hero">
                     <div class="hero-ornaments" aria-hidden="true">
-                        <img src="/src/assets/ornamento.svg" alt="" class="hero-ornament hero-ornament--1" />
-                        <img src="/src/assets/ornamento-3.svg" alt="" class="hero-ornament hero-ornament--2" />
-                        <img src="/src/assets/ornamento-brillito.svg" alt="" class="hero-ornament hero-ornament--3" />
-                        <img src="/src/assets/ornamento-14.svg" alt="" class="hero-ornament hero-ornament--4" />
+                        <img
+                            src="/src/assets/ornamento.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--1"
+                        />
+                        <img
+                            src="/src/assets/ornamento-3.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--2"
+                        />
+                        <img
+                            src="/src/assets/ornamento-brillito.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--3"
+                        />
+                        <img
+                            src="/src/assets/ornamento-14.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--4"
+                        />
                     </div>
                     <div class="hero-content">
                         <span class="hero-numeral">15</span>
                         <span class="hero-label">años</span>
                         <h1 class="hero-title">Wikimedia Chile</h1>
-                        <p class="hero-subtitle">Conocimiento libre, comunidad y patrimonio</p>
+                        <p class="hero-subtitle">
+                            Conocimiento libre, comunidad y patrimonio
+                        </p>
                     </div>
                 </section>
 

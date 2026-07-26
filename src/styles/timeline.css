@@ -96,6 +96,8 @@
 
 /* ===== Card ===== */
 .card {
+    border: 0.001rem solid var(--color-accent-blue);
+    border-radius: 1em;
     position: absolute;
     top: -10px;
     width: 260px;
@@ -260,7 +262,7 @@
 }
 
 .timeline-search input:focus {
-    border-color: var(--color-accent-blue);
+    border-color: var(--color-accent-green);
 }
 
 .timeline-search {
@@ -336,6 +338,8 @@
     }
 
     .card {
+        border: 0.01rem solid var(--color-accent-blue);
+        border-radius: 1em;
         position: relative;
         left: auto !important;
         right: auto !important;

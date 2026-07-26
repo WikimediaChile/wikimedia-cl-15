@@ -16,20 +16,18 @@ function groupByYear(items) {
 }
 
 function buildSpinePath(positions, centerX, yearMarkers) {
-  if (positions.length < 2 && yearMarkers.length === 0) return "";
+  if (positions.length === 0 && yearMarkers.length === 0) return "";
 
-  let d = "";
-  const first = yearMarkers[0] || positions[0];
-  const last = yearMarkers[yearMarkers.length - 1] || positions[positions.length - 1];
+  const allY = [];
+  for (const ym of yearMarkers) allY.push(ym.y);
+  for (const p of positions) allY.push(p.y);
+  if (allY.length < 2) return "";
 
-  if (yearMarkers.length > 0) {
-    d += `M ${centerX} ${first.y}`;
-    if (positions.length > 0) {
-      d += ` L ${centerX} ${positions[0].y}`;
-    }
-    d += ` L ${centerX} ${last.y}`;
-  } else {
-    d = `M ${centerX} ${first.y} L ${centerX} ${last.y}`;
+  allY.sort((a, b) => a - b);
+
+  let d = `M ${centerX} ${allY[0]}`;
+  for (let i = 1; i < allY.length; i++) {
+    d += ` L ${centerX} ${allY[i]}`;
   }
 
   for (const p of positions) {
@@ -192,15 +190,6 @@ function renderTimeline() {
     text.textContent = year;
     extraG.appendChild(text);
   });
-
-  if (yearMarkers.length > 0) {
-    const dot = document.createElementNS(svgNS, "circle");
-    dot.setAttribute("cx", centerX);
-    dot.setAttribute("cy", yearMarkers[0].y);
-    dot.setAttribute("r", 4);
-    dot.setAttribute("fill", "var(--color-accent-blue)");
-    extraG.appendChild(dot);
-  }
 
   svg.appendChild(extraG);
   timelineEl.prepend(svg);
