@@ -130,6 +130,8 @@ function animatePath() {
     requestAnimationFrame(() => {
       pathEl.style.strokeDashoffset = "0";
       glowEl.style.strokeDashoffset = "0";
+      pathEl.style.opacity = "1";
+      glowEl.style.opacity = "0.08";
     });
   });
 }
@@ -143,6 +145,8 @@ export function renderPath() {
     glowEl.setAttribute("d", "");
     return;
   }
+
+  timelineEl.offsetHeight;
 
   const visibleHitos = timelineEl.querySelectorAll(".hito:not(.hito--hidden)");
   const timelineRect = timelineEl.getBoundingClientRect();
@@ -160,7 +164,7 @@ export function renderPath() {
   for (let i = 0; i < positions.length; i++) {
     extended.push(positions[i]);
     if (i < positions.length - 1) {
-      const ncY = cardRects[i].bottom + 16;
+      const ncY = (cardRects[i].bottom + cardRects[i + 1].top) / 2;
       const ncBelow = { x: positions[i].x, y: ncY };
       const ncAbove = { x: positions[i + 1].x, y: ncY };
       extended.push(ncBelow, ncAbove);

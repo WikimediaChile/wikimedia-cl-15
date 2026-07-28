@@ -35,10 +35,50 @@ function renderTimeline() {
 
   renderActions();
   initSVG(timelineEl);
-  renderPath();
+  // renderPath();
+}
+
+function renderAfterAnimations() {
+  const cards = document.querySelectorAll(".hito-card");
+  if (cards.length === 0) {
+    setTimeout(() => renderPath(), 100);
+    return;
+  }
+
+  let pending = cards.length;
+  cards.forEach((card) => {
+    card.addEventListener(
+      "animationend",
+      () => {
+        pending--;
+        if (pending === 0) renderPath();
+      },
+      { once: true },
+    );
+  });
+}
+
+function initTheme() {
+  const html = document.documentElement;
+  const saved = localStorage.getItem("theme");
+  if (saved === "light") html.setAttribute("data-theme", "light");
+
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const isLight = html.getAttribute("data-theme") === "light";
+    if (isLight) {
+      html.removeAttribute("data-theme");
+      localStorage.setItem("theme", "dark");
+    } else {
+      html.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+    }
+  });
 }
 
 function initApp() {
+  initTheme();
   renderTimeline();
 
   initDialog();
@@ -47,11 +87,14 @@ function initApp() {
   initResizeHandler();
   initAnimations();
 
+  renderAfterAnimations();
+
   const params = new URLSearchParams(window.location.search);
   const hitoId = params.get("hito");
   if (hitoId) {
     setTimeout(() => openDialogById(hitoId), 600);
   }
+  document.body.style.opacity = "1";
 }
 
 function initAnimations() {
@@ -68,7 +111,5 @@ function initResizeHandler() {
     resizeTimer = setTimeout(renderPath, 100);
   });
 }
-
-
 
 initApp();

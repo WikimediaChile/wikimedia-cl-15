@@ -144,11 +144,13 @@
 }
 
 .timeline-path {
-    transition: stroke-dashoffset 2s ease-in-out;
+    opacity: 0;
+    transition: stroke-dashoffset 1s ease-in-out, opacity 150ms ease-in;
 }
 
 .timeline-glow {
-    transition: stroke-dashoffset 2s ease-in-out;
+    opacity: 0;
+    transition: stroke-dashoffset 1s ease-in-out, opacity 150ms ease-in;
 }
 
 /* ===== Timeline Controls ===== */
@@ -168,6 +170,11 @@
 .timeline-search {
     display: flex;
     max-width: 200px;
+}
+
+.timeline-search input:hover {
+    border-color: var(--color-accent-green);
+    color: var(--color-accent-green-text);
 }
 
 .timeline-filters button {
@@ -241,7 +248,7 @@
 }
 
 .timeline-search input:focus {
-    border-color: var(--color-accent-blue);
+    border-color: var(--color-accent-green);
 }
 
 .timeline-search {

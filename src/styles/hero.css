@@ -2,12 +2,16 @@
     position: relative;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    max-width: 1200px;
-    margin-inline: auto;
-    padding: 4rem 1.5rem;
+    margin: 0.75rem 1.5rem 0;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    background: var(--color-hero-bg);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 .hero-content {
@@ -15,7 +19,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 0.25rem;
+    gap: 0.1rem;
 }
 
 .hero-numeral,
@@ -52,7 +56,7 @@
 }
 
 .hero-numeral {
-    font-size: clamp(4rem, 12vw, 8rem);
+    font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.04em;
@@ -63,84 +67,37 @@
 }
 
 .hero-label {
-    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
     font-weight: 300;
     text-transform: uppercase;
-    letter-spacing: 0.4em;
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: -0.5rem;
+    letter-spacing: 0.25em;
+    color: var(--color-text-muted);
 }
 
 .hero-title {
     margin: 0;
-    margin-top: 1.5rem;
-    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
     font-weight: 600;
     color: var(--color-text);
 }
 
 .hero-subtitle {
     margin: 0;
-    margin-top: 0.5rem;
-    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 32rem;
+    font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+    color: var(--color-text-muted);
+    max-width: 24rem;
 }
 
 .hero-ornaments {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
+    display: none;
+    animation: ornaments-enter 2s ;
 }
 
-.hero-ornament {
-    position: absolute;
-    width: clamp(3rem, 8vw, 5rem);
-    height: auto;
-    opacity: 0.08;
-    filter: brightness(0) invert(1);
-}
-
-.hero-ornament--1 {
-    top: 10%;
-    left: 8%;
-    width: clamp(4rem, 10vw, 7rem);
-    opacity: 0.06;
-}
-
-.hero-ornament--2 {
-    top: 15%;
-    right: 10%;
-    width: clamp(3rem, 6vw, 4.5rem);
-    opacity: 0.1;
-}
-
-.hero-ornament--3 {
-    bottom: 20%;
-    left: 15%;
-    width: clamp(2.5rem, 5vw, 3.5rem);
-    opacity: 0.12;
-}
-
-.hero-ornament--4 {
-    bottom: 15%;
-    right: 12%;
-    width: clamp(3.5rem, 8vw, 5.5rem);
-    opacity: 0.07;
-}
-
-@media (max-width: 768px) {
-    .hero {
-        padding: 3rem 1.5rem;
+@keyframes ornamets-enter {
+    from {
+        opacity: 0;
     }
-
-    .hero-label {
-        letter-spacing: 0.2em;
-    }
-
-    .hero-ornament--1,
-    .hero-ornament--4 {
-        display: none;
+    to {
+        opacity: 1;
     }
 }
