@@ -1,5 +1,6 @@
 .hero {
     position: relative;
+    container-type: inline-size;
 
     display: flex;
     flex-direction: column;
@@ -12,6 +13,9 @@
     background: var(--color-hero-bg);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
+
+    max-width: clamp(320px, 80vw, 750px);
+    margin-inline: auto;
 }
 
 .hero-content {
@@ -89,11 +93,42 @@
 }
 
 .hero-ornaments {
-    display: none;
-    animation: ornaments-enter 2s ;
+    position: absolute;
+    inset:0;
+    pointer-events: none;
+    overflow: hidden;
+    animation: ornaments-enter 2s ease-in-out;
 }
 
-@keyframes ornamets-enter {
+.hero-ornament {
+    position:absolute;
+    /*width: clamp(3rem, 8cqw, 5rem);*/
+    height: auto;
+    opacity: 0.35;
+    filter: brightness(0) invert(1);
+}
+
+/*=== Ornamentos repartidos ===*/
+.hero-ornament--1 { bottom: 24%; right: 28%; width: clamp(2.75em, 10cqw, 15rem); }
+.hero-ornament--6 { top: 14%; left: 33%; width: clamp(2.75rem, 10cqw, 15rem); }
+.hero-ornament--7 { top: 12%; right: 13%; width: clamp(3.75rem, 10cqw, 15rem); }
+.hero-ornament--8 { bottom: 19%; left: 14%; width: clamp(3.75rem, 10cqw, 15rem); }
+
+.hero-ornament--1 { transform: rotate(90deg); }
+
+/*=== Ornamentos de esquinas ===*/
+.hero-ornament--2 { top: 6%; left: 2%; width: clamp(1.75rem, 5cqw, 3rem); }
+.hero-ornament--3 { top: 6%; right: 2%; width: clamp(1.75rem, 5cqw, 3rem); }
+.hero-ornament--4 { bottom: 6%; left: 2%; width: clamp(1.75rem, 5cqw, 3rem); }
+.hero-ornament--5 { bottom: 6%; right: 2%; width: clamp(1.75rem, 5cqw, 3rem); }
+
+
+.hero-ornament--2 { transform: rotate(180deg); }
+.hero-ornament--3 { transform: rotate(-90deg); }
+.hero-ornament--4 { transform: rotate(90deg); }
+.hero-ornament--5 { transform: rotate(0deg); }
+
+@keyframes ornaments-enter {
     from {
         opacity: 0;
     }
