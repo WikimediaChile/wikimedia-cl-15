@@ -22,6 +22,22 @@
     position: relative;
 }
 
+.hito {
+    position: relative;
+    z-index: 2;
+}
+
+.hito--visible .hito-card {
+    animation: card-enter 400ms ease-out forwards;
+}
+
+@keyframes card-enter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .hito--center {
     grid-column: 2;
     display: flex;
@@ -40,46 +56,30 @@
     justify-content: flex-start;
 }
 
-/* Centro */
-/* .hito:nth-child(3n + 1) {
-    grid-column: 2;
-    display: flex;
-    justify-content: center;
-} */
-
-/* Izquierda */
-/* .hito:nth-child(3n + 2) {
-    grid-column: 1;
-    display: flex;
-    justify-content: flex-end;
-} */
-
-/* Derecha */
-/* .hito:nth-child(3n + 3) {
-    grid-column: 3;
-    display: flex;
-    justify-content: flex-start;
-} */
-
-/* Centro */
-/* .hito:nth-child(4n) {
-    grid-column: 2;
-    display: flex;
-    justify-content: center;
-} */
-
-
-
 /* ===== Hidden state (filters) ===== */
 .hito--hidden {
     display: none;
+}
+
+#timeline.timeline--filtered {
+    row-gap: 2rem;
+    padding: 1rem 0;
+    min-height: 0;
+}
+
+.timeline-section.timeline-section--filtered {
+    padding-block: 1.5rem;
 }
 
 /* ===== Tarjetas ===== */
 .hito-card {
     position: relative;
     z-index: 2;
+    opacity: 0;
+
+    transform: translateY(30px);
     max-width: 32rem;
+
     padding: 1.5rem;
     border-radius: 1rem;
     background: var(--color-surface);
@@ -96,30 +96,15 @@
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
 }
 
-.hito--center .hito-card {
-    margin-left: 0.75rem;
-}
-
-.hito--left .hito-card {
-    margin-right: 0.75rem;
-}
-
+/* Derecha */
 .hito--right .hito-card {
-    margin-left: 0.75rem;
+    margin-left: 4rem;
 }
 
-/* .hito:nth-child(4n+1) .hito-card,
-.hito:nth-child(4n+4) .hito-card {
-    margin-left: 1.5rem;
+/* Izquierda */
+.hito--left .hito-card {
+    margin-right: 4rem;
 }
-
-.hito:nth-child(4n+2) .hito-card {
-    margin-right: 1rem;
-}
-
-.hito:nth-child(4n+3) .hito-card {
-    margin-left: 1rem;
-} */
 
 /* ===== Contenido ===== */
 .hito-body {
@@ -156,41 +141,56 @@
 /* ===== Marcadores ===== */
 .hito-marker {
     position: absolute;
-    top: 1.5rem;
-    width: 20px;
-    height: 20px;
+    top: 50%;
+    width: 6.25rem;
+    height: 6.25rem;
     border-radius: 50%;
     background: var(--color-accent-blue);
-    border: 3px solid var(--color-base);
+    border: 4px solid var(--color-base);
     z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hito--center .hito-marker,
+.hito-marker-icon {
+    width: 4.375rem;
+    height: 4.375rem;
+    filter: brightness(0) invert(1);
+    pointer-events: none;
+}
+
+.hito--left,
+.hito--right,
+.hito--marker-bottom {
+    transform: translateX(var(--x-offset, 0px));
+}
+
+/* Derecha */
 .hito--right .hito-marker {
     left: 0;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 }
 
+/* Izquierda */
 .hito--left .hito-marker {
     right: 0;
-    transform: translateX(50%);
+    transform: translate(50%, -50%);
 }
 
-/* .hito:nth-child(4n+1) .hito-marker,
-.hito:nth-child(4n+4) .hito-marker {
-    left: 0;
-    transform: translateX(-50%);
+.hito--marker-bottom .hito-card {
+    margin: 0 auto;
+    margin-bottom: 4rem;
 }
 
-.hito:nth-child(4n+2) .hito-marker {
-    right: 0;
-    transform: translateX(50%);
+.hito--marker-bottom .hito-marker {
+    top: auto;
+    bottom: -0.075rem;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 50%);
 }
-
-.hito:nth-child(4n+3) .hito-marker {
-    left: 0;
-    transform: translateX(-50%);
-} */
 
 /* ===== Línea temporal ===== */
 .timeline-svg {
@@ -207,9 +207,14 @@
     transition: stroke-dashoffset 2s ease-in-out;
 }
 
+.timeline-glow {
+    transition: stroke-dashoffset 2s ease-in-out;
+}
+
 /* ===== Timeline Controls ===== */
 .timeline-controls {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 1rem;
 }
@@ -222,6 +227,7 @@
 
 .timeline-search {
     display: flex;
+    max-width: 200px;
 }
 
 .timeline-filters button {
@@ -250,6 +256,35 @@
     font-weight: 600;
 }
 
+.timeline-category-select select {
+    padding: 0.4rem 2rem 0.4rem 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2rem;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 0.85rem;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23fff' opacity='0.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.65rem center;
+    transition:
+        border-color 180ms ease,
+        color 180ms ease;
+}
+
+.timeline-category-select select:hover {
+    border-color: var(--color-accent-green);
+    color: var(--color-accent-green-text);
+}
+
+.timeline-category-select select option {
+    background: var(--color-base);
+    color: var(--color-text);
+}
+
 .timeline-search input {
     padding: 0.4rem 0.85rem;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -267,6 +302,38 @@
 
 .timeline-search input:focus {
     border-color: var(--color-accent-blue);
+}
+
+.timeline-search {
+    position: relative;
+}
+
+.search-clear {
+    position: absolute;
+    right: 0.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    width: 1.4rem;
+    height: 1.4rem;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text);
+    font-size: 0.9rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 180ms ease;
+}
+
+.search-clear:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.search-clear--visible {
+    display: flex;
 }
 
 /* ===== Responsive ===== */
@@ -287,14 +354,15 @@
 
     .hito-card {
         max-width: none;
-        margin-left: 1rem !important;
+        margin-left: 4.5rem !important;
         margin-right: 0 !important;
     }
 
     .hito-marker {
         left: 0 !important;
         right: auto !important;
-        transform: translateX(-50%) !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
     }
 
     .timeline-controls {
@@ -336,22 +404,22 @@
     .hito:nth-child(odd) .hito-marker {
         right: 0;
         left: auto;
-        transform: translateX(50%);
+        transform: translate(50%, -50%);
     }
 
     .hito:nth-child(even) .hito-marker {
         left: 0;
         right: auto;
-        transform: translateX(-50%);
+        transform: translate(-50%, -50%);
     }
 
     .hito:nth-child(odd) .hito-card {
-        margin-right: 1rem;
+        margin-right: 4rem;
         margin-left: 0;
     }
 
     .hito:nth-child(even) .hito-card {
-        margin-left: 1rem;
+        margin-left: 4rem;
         margin-right: 0;
     }
 }

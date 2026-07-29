@@ -4,6 +4,8 @@ const dialogEl = document.querySelector("#hito-dialog");
 const dialogContentEl = dialogEl.querySelector(".dialog-content");
 const closeButtonEl = dialogEl.querySelector(".dialog-close");
 
+let lastFocused = null;
+
 function renderYouTubeEmbed(youtubeId) {
   return `
     <div class="dialog-video">
@@ -54,6 +56,16 @@ function renderHitoDialog(hito) {
   `;
 }
 
+function updateUrl(hitoId) {
+  const url = new URL(window.location);
+  if (hitoId) {
+    url.searchParams.set("hito", hitoId);
+  } else {
+    url.searchParams.delete("hito");
+  }
+  history.replaceState(null, "", url);
+}
+
 function handleHitoAction(event) {
   const button = event.target.closest(".hito-action");
   if (!button) return;
@@ -61,18 +73,51 @@ function handleHitoAction(event) {
   const hito = getHitoById(button.dataset.hitoId);
   if (!hito) return;
 
+  openHitoDialog(hito.id);
+}
+
+function openHitoDialog(id) {
+  const hito = getHitoById(id);
+  if (!hito) return;
+
+  lastFocused = document.activeElement;
   renderHitoDialog(hito);
+  dialogEl.setAttribute("aria-label", hito.title);
   dialogEl.showModal();
+  updateUrl(hito.id);
+}
+
+function handleClose() {
+  dialogEl.close();
 }
 
 export function initDialog() {
   document.querySelector("#timeline").addEventListener("click", handleHitoAction);
+  document.querySelector("#timeline").addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      handleHitoAction(event);
+    }
+  });
 
-  closeButtonEl.addEventListener("click", () => dialogEl.close());
+  closeButtonEl.addEventListener("click", handleClose);
 
   dialogEl.addEventListener("click", (event) => {
     if (event.target === dialogEl) {
-      dialogEl.close();
+      handleClose();
     }
   });
+
+  dialogEl.addEventListener("close", () => {
+    updateUrl(null);
+    if (lastFocused) {
+      lastFocused.focus();
+      lastFocused = null;
+    }
+  });
+}
+
+export function openDialogById(id) {
+  const el = document.querySelector(`.hito[data-id="${id}"]`);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  openHitoDialog(id);
 }

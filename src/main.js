@@ -1,23 +1,28 @@
 import "./style.css";
 import { hitos } from "./data.js";
 import { initSVG, renderPath } from "./svg.js";
-import { initDialog } from "./dialog.js";
+import { initDialog, openDialogById } from "./dialog.js";
 import { initFilters, renderActions } from "./filters.js";
 
 const timelineEl = document.querySelector("#timeline");
 
 function renderTimeline() {
   const layoutPattern = ["center", "left", "right"];
-
   timelineEl.innerHTML = hitos
-    .map(
-      (hito, index) => {
-        const layout = layoutPattern[index % layoutPattern.length];
+    .map((hito, index) => {
+      const layout = layoutPattern[index % layoutPattern.length];
+      const markerPosition = layout === "center" ? "hito--marker-bottom" : "";
 
-
-        return `
-    <li class="hito hito--${layout}" data-id="${hito.id}" data-type="${hito.type ?? ""}" data-category="${hito.category}">
-      <span class="hito-marker"></span>
+      return `
+   <li class="hito hito--${layout}${markerPosition ? ` ${markerPosition}` : ""}"
+    data-id="${hito.id}"
+    data-type="${hito.type ?? ""}"
+    data-category="${hito.category}"
+    style="--x-offset: ${hashOffset(hito.id)}px"
+    >
+      <span class="hito-marker">
+        ${hito.icon ? `<img class="hito-marker-icon" src="${hito.icon}" alt="" aria-hidden="true" />` : ""}
+      </span>
 
       <article class="hito-card">
         <span class="hito-year">${hito.date.slice(0, 4)}</span>
@@ -28,7 +33,7 @@ function renderTimeline() {
       </article>
     </li>
   `;
-      })
+    })
     .join("");
 
   renderActions();
@@ -43,6 +48,29 @@ function initApp() {
   initFilters();
 
   initResizeHandler();
+  initAnimations();
+
+  const params = new URLSearchParams(window.location.search);
+  const hitoId = params.get("hito");
+  if (hitoId) {
+    setTimeout(() => openDialogById(hitoId), 600);
+  }
+}
+
+function hashOffset(id, range = 30) {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash << 5) - hash + id.charCodeAt(i);
+    hash |= 0;
+  }
+  return (hash % (range * 2)) - range;
+}
+
+function initAnimations() {
+  document.querySelectorAll(".hito").forEach((el, i) => {
+    el.style.setProperty("--delay", `${i * 60}ms`);
+    el.classList.add("hito--visible");
+  });
 }
 
 function initResizeHandler() {
@@ -51,6 +79,8 @@ function initResizeHandler() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(renderPath, 100);
   });
-};
+}
+
+
 
 initApp();
