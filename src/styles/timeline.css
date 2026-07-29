@@ -33,12 +33,7 @@
 }
 
 .timeline-path {
-    stroke: var(--color-brand);
-    stroke-width: 3;
     fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    opacity: 0.5;
 }
 
 /* ===== Items container ===== */

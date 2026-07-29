@@ -152,17 +152,40 @@ function renderTimeline() {
   svg.setAttribute("preserveAspectRatio", "xMinYMin meet");
   svg.setAttribute("viewBox", `0 0 ${roadWidth} ${totalHeight}`);
 
+  const defs = document.createElementNS(svgNS, "defs");
+  const gradient = document.createElementNS(svgNS, "linearGradient");
+  gradient.setAttribute("id", "timeline-gradient");
+  gradient.setAttribute("x1", "0%");
+  gradient.setAttribute("y1", "0%");
+  gradient.setAttribute("x2", "100%");
+  gradient.setAttribute("y2", "100%");
+  const stop1 = document.createElementNS(svgNS, "stop");
+  stop1.setAttribute("offset", "0%");
+  stop1.style.setProperty("stop-color", "var(--color-brand)");
+  const stop2 = document.createElementNS(svgNS, "stop");
+  stop2.setAttribute("offset", "100%");
+  stop2.style.setProperty("stop-color", "var(--color-accent-blue)");
+  gradient.appendChild(stop1);
+  gradient.appendChild(stop2);
+  defs.appendChild(gradient);
+  svg.appendChild(defs);
+
   const glowEl = document.createElementNS(svgNS, "path");
   glowEl.classList.add("timeline-glow");
   glowEl.setAttribute("fill", "none");
   glowEl.setAttribute("stroke", "var(--color-accent-blue)");
   glowEl.setAttribute("stroke-width", "24");
-  glowEl.setAttribute("opacity", "0.08");
+  glowEl.setAttribute("opacity", "0.3");
   glowEl.setAttribute("stroke-linecap", "round");
   glowEl.setAttribute("stroke-linejoin", "round");
 
   const pathEl = document.createElementNS(svgNS, "path");
   pathEl.classList.add("timeline-path");
+  pathEl.setAttribute("stroke", "url(#timeline-gradient)");
+  pathEl.setAttribute("stroke-width", "8");
+  pathEl.setAttribute("fill", "none");
+  pathEl.setAttribute("stroke-linecap", "round");
+  pathEl.setAttribute("stroke-linejoin", "round");
   const pathData = buildSpinePath(actualPositions, centerX, yearMarkers);
   pathEl.setAttribute("d", pathData);
   glowEl.setAttribute("d", pathData);
