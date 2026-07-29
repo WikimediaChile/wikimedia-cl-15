@@ -1,4 +1,27 @@
 /* ===== Layout ===== */
+#timeline-title {
+    border: 1px solid var(--color-accent-blue);
+    border-radius: 10px;
+    background-color: var(--color-surface);
+
+    max-width: clamp(320px, 70vw, 650px);
+    margin-inline: auto;
+
+    padding: 10px 0 10px 0;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-brand);
+    margin-top: 2rem;
+    text-transform: uppercase;
+}
+
 #timeline {
     display: flex;
     flex-direction: column;
@@ -164,12 +187,16 @@
 
 .timeline-path {
     opacity: 0;
-    transition: stroke-dashoffset 1s ease-in-out, opacity 150ms ease-in;
+    transition:
+        stroke-dashoffset 1s ease-in-out,
+        opacity 150ms ease-in;
 }
 
 .timeline-glow {
     opacity: 0;
-    transition: stroke-dashoffset 1s ease-in-out, opacity 150ms ease-in;
+    transition:
+        stroke-dashoffset 1s ease-in-out,
+        opacity 150ms ease-in;
 }
 
 /* ===== Timeline Controls ===== */
