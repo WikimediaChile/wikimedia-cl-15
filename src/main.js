@@ -51,8 +51,8 @@ function renderTimeline() {
   const ITEM_W = 600;
   const MARKER_HALF = 44;
   const GAP = 27;
-  const YEAR_PILL_H = 48;
-  const YEAR_GAP = 60;
+  const YEAR_PILL_H = 60;
+  const YEAR_GAP = 64;
   const BASE_GAP = 60;
   const TOP_PAD = 120;
 
@@ -72,7 +72,7 @@ function renderTimeline() {
   const cardFragments = [];
 
   yearGroups.forEach(([year, group]) => {
-    yearMarkers.push({ y: cursorY, year });
+    yearMarkers.push({ y: cursorY + YEAR_PILL_H / 2, year });
 
     cursorY += YEAR_PILL_H + YEAR_GAP;
 
@@ -152,10 +152,22 @@ function renderTimeline() {
   svg.setAttribute("preserveAspectRatio", "xMinYMin meet");
   svg.setAttribute("viewBox", `0 0 ${roadWidth} ${totalHeight}`);
 
+  const glowEl = document.createElementNS(svgNS, "path");
+  glowEl.classList.add("timeline-glow");
+  glowEl.setAttribute("fill", "none");
+  glowEl.setAttribute("stroke", "var(--color-accent-blue)");
+  glowEl.setAttribute("stroke-width", "24");
+  glowEl.setAttribute("opacity", "0.08");
+  glowEl.setAttribute("stroke-linecap", "round");
+  glowEl.setAttribute("stroke-linejoin", "round");
+
   const pathEl = document.createElementNS(svgNS, "path");
   pathEl.classList.add("timeline-path");
-  pathEl.setAttribute("d", buildSpinePath(actualPositions, centerX, yearMarkers));
+  const pathData = buildSpinePath(actualPositions, centerX, yearMarkers);
+  pathEl.setAttribute("d", pathData);
+  glowEl.setAttribute("d", pathData);
 
+  svg.appendChild(glowEl);
   svg.appendChild(pathEl);
 
   const extraG = document.createElementNS(svgNS, "g");
@@ -163,10 +175,10 @@ function renderTimeline() {
   yearMarkers.forEach(({ y, year }) => {
     const rx = 14;
     const ry = 14;
-    const pw = 82;
+    const pw = 110;
     const ph = YEAR_PILL_H;
     const px = centerX - pw / 2;
-    const py = y;
+    const py = y - ph / 2;
 
     const rect = document.createElementNS(svgNS, "rect");
     rect.setAttribute("x", px);
@@ -185,8 +197,8 @@ function renderTimeline() {
     text.setAttribute("text-anchor", "middle");
     text.setAttribute("dominant-baseline", "central");
     text.setAttribute("fill", "var(--color-base)");
-    text.setAttribute("font-weight", "700");
-    text.setAttribute("font-size", "1rem");
+    text.setAttribute("font-weight", "800");
+    text.setAttribute("font-size", "20");
     text.textContent = year;
     extraG.appendChild(text);
   });
@@ -200,7 +212,7 @@ function renderTimeline() {
 
 function scheduleRedraw() {
   let timer;
-  const breakpoint = 900;
+  const breakpoint = 768;
   window.addEventListener("resize", () => {
     clearTimeout(timer);
     if (window.innerWidth <= breakpoint) return;
@@ -253,6 +265,7 @@ function initApp() {
   if (hitoId) {
     setTimeout(() => openDialogById(hitoId), 600);
   }
+  document.body.style.opacity = "1";
 }
 
 initApp();

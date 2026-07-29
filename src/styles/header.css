@@ -86,9 +86,13 @@
     display: block;
 }
 
+.theme-icon:hover {
+    fill: #3a8e5e;
+}
+
 .theme-icon--moon {
     display: none;
-    filter: invert(1);
+    fill: var(--color-text);
 }
 
 [data-theme="light"] .theme-icon--sun {
