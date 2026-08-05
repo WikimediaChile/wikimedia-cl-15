@@ -1,4 +1,4 @@
-import { getHitoById } from "./data.js";
+import { getHitoById, formatDate } from "./data.js";
 
 const dialogEl = document.querySelector("#hito-dialog");
 const dialogContentEl = dialogEl.querySelector(".dialog-content");
@@ -22,7 +22,7 @@ function renderYouTubeEmbed(youtubeId) {
 
 function renderHitoDialog(hito) {
   dialogContentEl.innerHTML = `
-    <span class="dialog-year">${hito.date.slice(0, 4)}</span>
+    <span class="dialog-year">${formatDate(hito.date)}</span>
     <h2 class="dialog-title">${hito.title}</h2>
     <p class="dialog-body">${hito.body}</p>
 

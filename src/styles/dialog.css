@@ -3,6 +3,7 @@
 #hito-dialog {
     width: min(90vw, 700px);
     max-height: 85vh;
+    margin: auto;
 
     overflow: hidden;
 

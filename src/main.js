@@ -1,5 +1,5 @@
 import "./style.css";
-import { hitos } from "./data.js";
+import { hitos, formatDate } from "./data.js";
 import { initSVG, renderPath } from "./svg.js";
 import { initDialog, openDialogById } from "./dialog.js";
 import { initFilters, renderActions } from "./filters.js";
@@ -39,7 +39,7 @@ function renderTimeline() {
       </span>
 
       <article class="hito-card">
-        <span class="hito-year">${hito.date.slice(0, 4)}</span>
+        <span class="hito-year">${formatDate(hito.date)}</span>
         <h3 class="hito-title">${hito.title}</h3>
         <p class="hito-body">${hito.body}</p>
 

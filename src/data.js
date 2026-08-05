@@ -26,6 +26,21 @@ export function getHitoById(id) {
   return hitos.find((h) => h.id === id);
 }
 
+const MONTHS = [
+  "enero", "febrero", "marzo", "abril", "mayo", "junio",
+  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+];
+
+export function formatDate(date) {
+  if (!date) return "";
+  const [year, month, day] = date.split("-").map(Number);
+  const monthName = MONTHS[month - 1];
+  if (!monthName) return String(year);
+  return day && day !== 1
+    ? `${day} de ${monthName} de ${year}`
+    : `${monthName} de ${year}`;
+}
+
 export function hasAdditionalContent(hito) {
   return Boolean(hito.image || hito.url || hito.youtubeId);
 }
