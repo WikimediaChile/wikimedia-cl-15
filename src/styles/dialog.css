@@ -7,7 +7,7 @@
 
     overflow: hidden;
 
-    border: 1px solid var(--color-brand);
+    border: 1px solid var(--accent, var(--color-brand));
     border-radius: 1rem;
 
     background: var(--color-surface);
@@ -92,16 +92,38 @@
 }
 
 .dialog-link {
+    align-self: flex-start;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    color: var(--color-accent-blue);
+
+    margin-top: 0.75rem;
+    padding: 0.35rem 1rem;
+
+    border: 1px solid var(--accent, var(--color-accent-blue));
+    border-radius: 2rem;
+
+    background: transparent;
+    color: var(--accent-text, var(--accent, var(--color-accent-blue)));
     text-decoration: none;
+
+    font-size: 0.8rem;
     font-weight: 600;
+
+    transition:
+        background-color 180ms ease,
+        color 180ms ease;
 }
 
 .dialog-link:hover {
-    text-decoration: underline;
+    background: var(--accent, var(--color-accent-blue));
+    color: var(--color-base);
+    text-decoration: none;
+}
+
+.dialog-link:focus-visible {
+    outline: 2px solid var(--accent, var(--color-brand));
+    outline-offset: 3px;
 }
 
 /* ===== Dialog close button ===== */
