@@ -15,13 +15,23 @@ html {
 body {
     margin: 0;
 
-    background: var(--color-base);
+    background: url("/darkmode-15.png") center / cover no-repeat fixed;
+    background-color: var(--color-base);
     color: var(--color-text);
 
     font-family:
         Inter,
         system-ui,
         sans-serif;
+}
+
+html[data-theme="light"] body {
+    background-image: url("/lightmode-15.png");
+}
+
+#app {
+    min-height: 100vh;
+    background: linear-gradient(var(--color-bg-overlay), var(--color-bg-overlay));
 }
 
 /* ===== Medios ===== */

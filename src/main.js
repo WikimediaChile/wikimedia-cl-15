@@ -6,6 +6,19 @@ import { initFilters, renderActions } from "./filters.js";
 
 const timelineEl = document.querySelector("#timeline");
 
+const CATEGORY_COLORS = {
+  institucional: "purple",
+  comunidad: "purple",
+  internacional: "blue",
+  educacion: "blue",
+  glam: "green",
+  datos: "green",
+};
+
+function getCategoryColor(category) {
+  return CATEGORY_COLORS[category] || "blue";
+}
+
 function renderTimeline() {
   const layoutPattern = ["center", "left", "right"];
   timelineEl.innerHTML = hitos
@@ -18,6 +31,7 @@ function renderTimeline() {
     data-id="${hito.id}"
     data-type="${hito.type ?? ""}"
     data-category="${hito.category}"
+    data-color="${getCategoryColor(hito.category)}"
     style="--x-offset: ${hashOffset(hito.id)}px"
     >
       <span class="hito-marker">
@@ -42,6 +56,8 @@ function renderTimeline() {
 }
 
 function initApp() {
+  initTheme();
+
   renderTimeline();
 
   initDialog();
@@ -55,6 +71,17 @@ function initApp() {
   if (hitoId) {
     setTimeout(() => openDialogById(hitoId), 600);
   }
+  document.body.style.opacity = "1";
+}
+
+function initTheme() {
+  const saved = localStorage.getItem("theme") || "dark";
+  document.documentElement.setAttribute("data-theme", saved);
+  document.getElementById("theme-toggle")?.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
 }
 
 function hashOffset(id, range = 30) {
@@ -63,7 +90,7 @@ function hashOffset(id, range = 30) {
     hash = (hash << 5) - hash + id.charCodeAt(i);
     hash |= 0;
   }
-  return (hash % (range * 2)) - range;
+  return (Math.abs(hash) % (range * 2)) - range;
 }
 
 function initAnimations() {

@@ -4,8 +4,30 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Wikimedia Chile — 15 años</title>
+        <style>
+            body {
+                opacity: 0;
+                transition: opacity 0.25s;
+            }
+        </style>
     </head>
     <body>
+        <script>
+            if (!CSS.supports("animation-timeline", "scroll()")) {
+                window.addEventListener("scroll", () => {
+                    const pixels =
+                        window.pageYOffset ||
+                        document.documentElement.scrollTop;
+                    const height =
+                        document.documentElement.scrollHeight -
+                        document.documentElement.clientHeight;
+                    const percentage = pixels / height;
+                    document.getElementById("progress").style.transform =
+                        `scaleX(${percentage})`;
+                });
+            }
+        </script>
+        <div id="progress"></div>
         <div id="app">
             <header class="site-header">
                 <div class="site-header-inner">
@@ -18,14 +40,51 @@
                         />
                     </a>
 
+                    <button
+                        id="theme-toggle"
+                        type="button"
+                        class="theme-toggle"
+                        aria-label="Cambiar modo claro/oscuro"
+                        title="Modo claro/oscuro"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="theme-icon theme-icon--sun"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"
+                            />
+                        </svg>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="theme-icon theme-icon--moon"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286"
+                            />
+                        </svg>
+                    </button>
+
                     <div class="timeline-controls">
                         <div class="timeline-category-select">
                             <select aria-label="Filtrar por categoría">
                                 <option value="">Categorías</option>
                                 <option value="__article__">Artículos</option>
-                                <option value="institucional">Institucional</option>
+                                <option value="institucional">
+                                    Institucional
+                                </option>
                                 <option value="comunidad">Comunidad</option>
-                                <option value="internacional">Internacional</option>
+                                <option value="internacional">
+                                    Internacional
+                                </option>
                                 <option value="glam">GLAM</option>
                                 <option value="educacion">Educación</option>
                                 <option value="datos">Datos</option>
@@ -38,7 +97,13 @@
                                 placeholder="Buscar hito..."
                                 aria-label="Buscar hito"
                             />
-                            <button class="search-clear" type="button" aria-label="Limpiar búsqueda">×</button>
+                            <button
+                                class="search-clear"
+                                type="button"
+                                aria-label="Limpiar búsqueda"
+                            >
+                                ×
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -47,20 +112,75 @@
             <main class="site-main">
                 <section class="hero">
                     <div class="hero-ornaments" aria-hidden="true">
-                        <img src="/src/assets/ornamento.svg" alt="" class="hero-ornament hero-ornament--1" />
-                        <img src="/src/assets/ornamento-3.svg" alt="" class="hero-ornament hero-ornament--2" />
-                        <img src="/src/assets/ornamento-brillito.svg" alt="" class="hero-ornament hero-ornament--3" />
-                        <img src="/src/assets/ornamento-14.svg" alt="" class="hero-ornament hero-ornament--4" />
+                        <img
+                            src="/src/assets/ornamento.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--1"
+                        />
+                        <img
+                            src="/src/assets/ornamento-14.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--2"
+                        />
+                        <img
+                            src="/src/assets/ornamento-14.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--3"
+                        />
+                        <img
+                            src="/src/assets/ornamento-14.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--4"
+                        />
+                        <img
+                            src="/src/assets/ornamento-14.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--5"
+                        />
+                        <img
+                            src="/src/assets/ornamento-brillito.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--6"
+                        />
+                        <img
+                            src="/src/assets/ornamento-flor.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--7"
+                        />
+                        <img
+                            src="/src/assets/ornamento-estrella.svg"
+                            alt=""
+                            class="hero-ornament hero-ornament--8"
+                        />
                     </div>
                     <div class="hero-content">
+                        <h1 class="hero-heading">15 años de Wikimedia Chile</h1>
+                        <p class="hero-text">
+                            El conocimiento en Internet se construye de forma
+                            colaborativa y su libre acceso es un derecho humano.
+                        </p>
+                        <p class="hero-text">
+                            Hoy nos alegra seguir impulsando a la comunidad
+                            chilena detrás de Wikipedia: voluntarios y
+                            voluntarias que día a día crean, editan y actualizan
+                            la información disponible en la enciclopedia abierta
+                            más grande del mundo.
+                        </p>
+                        <p class="hero-cta">
+                            Conoce aquí nuestros principales hitos. ¡Gracias por
+                            ser parte de esta historia!
+                        </p>
+                    </div>
+                    <!--<div class="hero-content">
                         <span class="hero-numeral">15</span>
                         <span class="hero-label">años</span>
                         <h1 class="hero-title">Wikimedia Chile</h1>
                         <p class="hero-subtitle">Conocimiento libre, comunidad y patrimonio</p>
-                    </div>
+                    </div>-->
                 </section>
 
                 <section class="timeline-section">
+                    <!--<div id="timeline-title">Revivamos juntxs nuestra historia</div>-->
                     <ol id="timeline"></ol>
                 </section>
             </main>

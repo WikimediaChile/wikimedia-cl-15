@@ -1,5 +1,5 @@
 .site-main {
-    background: var(--color-base);
+    background: transparent;
     color: var(--color-text);
     min-height: 100vh;
 }

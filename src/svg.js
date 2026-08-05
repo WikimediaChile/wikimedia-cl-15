@@ -25,12 +25,18 @@ export function initSVG(timelineContainer) {
 
   const stop1 = document.createElementNS(svgNS, "stop");
   stop1.setAttribute("offset", "0%");
-  stop1.style.setProperty("stop-color", "var(--color-brand)");
+  stop1.style.setProperty("stop-color", "var(--color-accent-purple)");
+
+  const stopMid = document.createElementNS(svgNS, "stop");
+  stopMid.setAttribute("offset", "50%");
+  stopMid.style.setProperty("stop-color", "var(--color-accent-green)");
+
   const stop2 = document.createElementNS(svgNS, "stop");
   stop2.setAttribute("offset", "100%");
   stop2.style.setProperty("stop-color", "var(--color-accent-blue)");
 
   gradient.appendChild(stop1);
+  gradient.appendChild(stopMid);
   gradient.appendChild(stop2);
   defs.appendChild(gradient);
   svgEl.appendChild(defs);
@@ -40,7 +46,7 @@ export function initSVG(timelineContainer) {
   glowEl.setAttribute("fill", "none");
   glowEl.setAttribute("stroke", "var(--color-accent-blue)");
   glowEl.setAttribute("stroke-width", "24");
-  glowEl.setAttribute("opacity", "0.08");
+  glowEl.setAttribute("opacity", "0.35");
   glowEl.setAttribute("stroke-linecap", "round");
   glowEl.setAttribute("stroke-linejoin", "round");
 
