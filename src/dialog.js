@@ -80,6 +80,12 @@ function openHitoDialog(id) {
   const hito = getHitoById(id);
   if (!hito) return;
 
+  const hitoEl = document.querySelector(`.hito[data-id="${id}"]`);
+  const accent = hitoEl?.style.getPropertyValue("--accent").trim();
+  const accentText = hitoEl?.style.getPropertyValue("--accent-text").trim();
+  if (accent) dialogEl.style.setProperty("--accent", accent);
+  if (accentText) dialogEl.style.setProperty("--accent-text", accentText);
+
   lastFocused = document.activeElement;
   renderHitoDialog(hito);
   dialogEl.setAttribute("aria-label", hito.title);

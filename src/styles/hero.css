@@ -11,11 +11,11 @@
     padding: 0.75rem 1.5rem;
     border-radius: 0.75rem;
     background: var(--color-hero-bg);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
 
     /*max-width: clamp(320px, 80vw, 750px);*/
-    max-width: clamp(320px, 85vw, 820px);
+    max-width: clamp(350px, 85vw, 820px);
     margin-inline: auto;
 }
 
@@ -134,8 +134,12 @@
     position: absolute;
     width: clamp(3rem, 8cqw, 5rem);
     height: auto;
-    opacity: 0.35;
+    opacity: var(--ornament-opacity, 0.35);
     filter: brightness(0) invert(1);
+}
+
+html[data-theme="light"] .hero-ornament {
+    filter: brightness(0);
 }
 
 /*=== Ornamentos repartidos ===*/
@@ -166,23 +170,27 @@
 
 /*=== Ornamentos de esquinas ===*/
 .hero-ornament--2 {
-    top: 6%;
-    left: 2%;
+    top: 3%;
+    left: 1%;
+    opacity: 0.15;
     width: clamp(1.75rem, 5cqw, 3rem);
 }
 .hero-ornament--3 {
-    top: 6%;
-    right: 2%;
+    top: 3%;
+    right: 1%;
+    opacity: 0.15;
     width: clamp(1.75rem, 5cqw, 3rem);
 }
 .hero-ornament--4 {
-    bottom: 6%;
-    left: 2%;
+    bottom: 3%;
+    left: 1%;
+    opacity: 0.15;
     width: clamp(1.75rem, 5cqw, 3rem);
 }
 .hero-ornament--5 {
-    bottom: 6%;
-    right: 2%;
+    bottom: 3%;
+    right: 1%;
+    opacity: 0.15;
     width: clamp(1.75rem, 5cqw, 3rem);
 }
 

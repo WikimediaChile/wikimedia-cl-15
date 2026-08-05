@@ -108,17 +108,17 @@
 
 .hito-card:hover {
     transform: translateY(-4px);
-    border-color: var(--color-brand);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    border-color: var(--accent, var(--color-brand));
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--accent, var(--color-brand)) 30%, transparent);
 }
 
 .hito-action {
     margin-top: 0.75rem;
     padding: 0.35rem 1rem;
-    border: 1px solid var(--color-accent-blue);
+    border: 1px solid var(--accent, var(--color-accent-blue));
     border-radius: 2rem;
     background: transparent;
-    color: var(--color-accent-blue);
+    color: var(--accent-text, var(--accent, var(--color-accent-blue)));
     font-size: 0.8rem;
     cursor: pointer;
     transition:
@@ -127,8 +127,13 @@
 }
 
 .hito-action:hover {
-    background: var(--color-accent-blue);
+    background: var(--accent, var(--color-accent-blue));
     color: var(--color-base);
+}
+
+.hito-action:focus-visible {
+    outline: 2px solid var(--accent, var(--color-brand));
+    outline-offset: 3px;
 }
 
 /* Derecha */
@@ -164,7 +169,7 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--color-brand);
+    color: var(--accent, var(--color-brand));
 }
 
 .hito-title {
@@ -309,7 +314,7 @@
 
 .timeline-category-select select {
     padding: 0.4rem 2rem 0.4rem 0.85rem;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--color-toggle-border);
     border-radius: 2rem;
     background: transparent;
     color: var(--color-text);
@@ -318,12 +323,16 @@
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23fff' opacity='0.5'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23fff' opacity='1'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.65rem center;
     transition:
         border-color 180ms ease,
         color 180ms ease;
+}
+
+html[data-theme="light"] .timeline-category-select select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%231a1613' opacity='1'/%3E%3C/svg%3E");
 }
 
 .timeline-category-select select:hover {
@@ -338,7 +347,7 @@
 
 .timeline-search input {
     padding: 0.4rem 0.85rem;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--color-toggle-border);
     border-radius: 2rem;
     background: transparent;
     color: var(--color-text);
@@ -348,11 +357,15 @@
 }
 
 .timeline-search input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+    color:var(--color-placeholder);
 }
 
 .timeline-search input:focus {
-    border-color: var(--color-accent-blue);
+    border-color: var(--color-accent-green);
+}
+
+.timeline-search input:hover {
+    border-color: var(--color-accent-green);
 }
 
 .timeline-search {
@@ -437,6 +450,11 @@
         width: 4rem;
         height: 4rem;
         border-width: 2px;
+    }
+
+    .timeline-glow {
+        stroke-width: 10;
+        opacity: 0.22;
     }
 
     .hito-marker-icon {
