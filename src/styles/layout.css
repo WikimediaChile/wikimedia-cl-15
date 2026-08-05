@@ -1,0 +1,5 @@
+.site-main {
+    background: transparent;
+    color: var(--color-text);
+    min-height: 100vh;
+}
