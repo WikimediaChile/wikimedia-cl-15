@@ -34,6 +34,20 @@ html[data-theme="light"] body {
     background: linear-gradient(var(--color-bg-overlay), var(--color-bg-overlay));
 }
 
+/* ===== Brand logo ===== */
+.brand-logo {
+    width: 200px;
+    height: 35px;
+    background-image: url("../../public/logo-white.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+html[data-theme="light"] .brand-logo {
+    background-image: url("../../public/logo-black.svg");
+}
+
 /* ===== Medios ===== */
 
 img,

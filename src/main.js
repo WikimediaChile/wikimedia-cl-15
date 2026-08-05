@@ -15,6 +15,12 @@ const CATEGORY_COLORS = {
   datos: "green",
 };
 
+const CATEGORY_ACCENTS = {
+  purple: { accent: "var(--color-accent-purple)", text: "var(--color-accent-purple)" },
+  green: { accent: "var(--color-accent-green)", text: "var(--color-accent-green-text)" },
+  blue: { accent: "var(--color-accent-blue)", text: "var(--color-accent-blue)" },
+};
+
 function getCategoryColor(category) {
   return CATEGORY_COLORS[category] || "blue";
 }
@@ -25,6 +31,7 @@ function renderTimeline() {
     .map((hito, index) => {
       const layout = layoutPattern[index % layoutPattern.length];
       const markerPosition = layout === "center" ? "hito--marker-bottom" : "";
+      const accent = CATEGORY_ACCENTS[getCategoryColor(hito.category)];
 
       return `
    <li class="hito hito--${layout}${markerPosition ? ` ${markerPosition}` : ""}"
@@ -32,7 +39,7 @@ function renderTimeline() {
     data-type="${hito.type ?? ""}"
     data-category="${hito.category}"
     data-color="${getCategoryColor(hito.category)}"
-    style="--x-offset: ${hashOffset(hito.id)}px"
+    style="--x-offset: ${hashOffset(hito.id)}px; --accent: ${accent.accent}; --accent-text: ${accent.text}"
     >
       <span class="hito-marker">
         ${hito.icon ? `<img class="hito-marker-icon" src="${hito.icon}" alt="" aria-hidden="true" />` : ""}

@@ -11,8 +11,8 @@
     padding: 0.75rem 1.5rem;
     border-radius: 0.75rem;
     background: var(--color-hero-bg);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
 
     /*max-width: clamp(320px, 80vw, 750px);*/
     max-width: clamp(320px, 85vw, 820px);
@@ -134,8 +134,12 @@
     position: absolute;
     width: clamp(3rem, 8cqw, 5rem);
     height: auto;
-    opacity: 0.35;
+    opacity: var(--ornament-opacity, 0.35);
     filter: brightness(0) invert(1);
+}
+
+html[data-theme="light"] .hero-ornament {
+    filter: brightness(0);
 }
 
 /*=== Ornamentos repartidos ===*/
