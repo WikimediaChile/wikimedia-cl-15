@@ -15,7 +15,7 @@
     -webkit-backdrop-filter: blur(1px);
 
     /*max-width: clamp(320px, 80vw, 750px);*/
-    max-width: clamp(320px, 85vw, 820px);
+    max-width: clamp(350px, 85vw, 820px);
     margin-inline: auto;
 }
 
@@ -170,23 +170,27 @@ html[data-theme="light"] .hero-ornament {
 
 /*=== Ornamentos de esquinas ===*/
 .hero-ornament--2 {
-    top: 6%;
-    left: 2%;
+    top: 3%;
+    left: 1%;
+    opacity: 0.15;
     width: clamp(1.75rem, 5cqw, 3rem);
 }
 .hero-ornament--3 {
-    top: 6%;
-    right: 2%;
+    top: 3%;
+    right: 1%;
+    opacity: 0.15;
     width: clamp(1.75rem, 5cqw, 3rem);
 }
 .hero-ornament--4 {
-    bottom: 6%;
-    left: 2%;
+    bottom: 3%;
+    left: 1%;
+    opacity: 0.15;
     width: clamp(1.75rem, 5cqw, 3rem);
 }
 .hero-ornament--5 {
-    bottom: 6%;
-    right: 2%;
+    bottom: 3%;
+    right: 1%;
+    opacity: 0.15;
     width: clamp(1.75rem, 5cqw, 3rem);
 }
 

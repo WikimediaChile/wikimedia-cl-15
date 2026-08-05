@@ -17,7 +17,7 @@
 :root {
     --color-bg-overlay: rgba(23, 20, 18, 0.65);
     --color-header-bg: rgba(23, 20, 18, 0.75);
-    --color-hero-bg: rgba(23, 20, 18, 0.45);
+    --color-hero-bg: rgba(23, 20, 18, 0.05);
     --ornament-opacity: 0.28;
     --color-text-muted: rgba(255, 255, 255, 0.85);
     --color-border-light: rgba(255, 255, 255, 0.08);

@@ -3,6 +3,14 @@ let glowEl = null;
 let timelineEl = null;
 let animated = false;
 
+const MOBILE_QUERY = "(max-width: 1024px)";
+const MOBILE_AMPLITUDE = 26;
+const MOBILE_WAVELENGTH = 2;
+
+function isMobile() {
+  return window.matchMedia(MOBILE_QUERY).matches;
+}
+
 export function initSVG(timelineContainer) {
   timelineEl = timelineContainer;
 
@@ -85,6 +93,8 @@ function getMarkerPositions() {
 function buildSmoothPath(positions, tension = 0.2) {
   if (positions.length < 2) return "";
 
+  const mobile = isMobile();
+
   let pathData = `M ${positions[0].x} ${positions[0].y} `;
 
   for (let i = 0; i < positions.length - 1; i++) {
@@ -93,9 +103,15 @@ function buildSmoothPath(positions, tension = 0.2) {
     const p2 = positions[i + 1];
     const p3 = positions[i + 2] || p2;
 
-    const cp1x = p1.x + (p2.x - p0.x) * tension;
+    let waveOffset = 0;
+    if (mobile) {
+      const waveAmplitude = MOBILE_AMPLITUDE;
+      waveOffset = i % 2 === 0 ? waveAmplitude : -waveAmplitude;
+    }
+
+    const cp1x = p1.x + (p2.x - p0.x) * tension + waveOffset;
     const cp1y = p1.y + (p2.y - p0.y) * tension;
-    const cp2x = p2.x - (p3.x - p1.x) * tension;
+    const cp2x = p2.x - (p3.x - p1.x) * tension + waveOffset;
     const cp2y = p2.y - (p3.y - p1.y) * tension;
 
     pathData += `C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y} `;

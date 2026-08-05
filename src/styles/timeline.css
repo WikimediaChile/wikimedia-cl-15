@@ -452,6 +452,11 @@ html[data-theme="light"] .timeline-category-select select {
         border-width: 2px;
     }
 
+    .timeline-glow {
+        stroke-width: 10;
+        opacity: 0.22;
+    }
+
     .hito-marker-icon {
         width: 2.5rem;
         height: 2.5rem;
