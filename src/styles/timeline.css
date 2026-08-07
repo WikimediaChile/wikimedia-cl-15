@@ -31,15 +31,12 @@
 /* ===== Hitos - 3 column serpentine pattern ===== */
 .hito {
     position: relative;
-}
-
-.hito {
-    position: relative;
     z-index: 2;
 }
 
 .hito--visible .hito-card {
     animation: card-enter 400ms ease-out forwards;
+    animation-delay: var(--delay, 0ms);
 }
 
 @keyframes card-enter {
@@ -99,7 +96,7 @@
     padding: 1.5rem;
     border-radius: 1rem;
     background: var(--color-surface);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-border-light);
     transition:
         transform 180ms ease,
         border-color 180ms ease,
@@ -384,7 +381,7 @@ html[data-theme="light"] .timeline-category-select select {
     justify-content: center;
     border: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--color-control-bg-hover);
     color: var(--color-text);
     font-size: 0.9rem;
     line-height: 1;
@@ -393,7 +390,7 @@ html[data-theme="light"] .timeline-category-select select {
 }
 
 .search-clear:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--color-control-bg-hover2);
 }
 
 .search-clear--visible {
