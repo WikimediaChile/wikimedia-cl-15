@@ -68,7 +68,7 @@
     "type": null,
     "image": null,
     "url": null,
-    "youtubeId": null,
+    "youtubeId": "Gem9JV0yk5o",
     "scope": "chile"
   },
   {
@@ -92,7 +92,7 @@
     "type": null,
     "image": null,
     "url": null,
-    "youtubeId": null,
+    "youtubeId": "b4Op4T_o6vE",
     "scope": "chile"
   },
   {
@@ -225,6 +225,18 @@
     "image": "https://upload.wikimedia.org/wikipedia/commons/3/34/Editat%C3%B3n_Wikipedia_15_Concepci%C3%B3n_09.JPG",
     "url": null,
     "youtubeId": null,
+    "scope": "chile"
+  },
+  {
+    "id": "wmcl-2018-primera-jornada",
+    "date": "2018-05-07",
+    "title": "Primera Jornada Wikimedia Chile",
+    "body": "Se realiza la Primera Jornada Wikimedia Chile, que tuvo como objetivo tratar diversos temas de interés sobre Wikipedia sus proyectos. Además se realizó el lanzamiento de Wikipuentes, un proyecto dedicado a docentes que quieren aprender a utilizar Wikipedia como herramienta educativa en sus salas de clases.",
+    "category": "institucional",
+    "type": "article",
+    "image": null,
+    "url": null,
+    "youtubeId": "JgOlXDktbKs",
     "scope": "chile"
   },
   {

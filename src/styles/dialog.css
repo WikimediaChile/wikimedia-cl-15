@@ -136,11 +136,11 @@
     width: 2rem;
     height: 2rem;
 
-    border: 0;
+    border: 1px solid var(--accent, var(--color-accent-blue));
     border-radius: 50%;
 
     background: transparent;
-    color: var(--color-text);
+    color: var(--accent-text, var(--accent, var(--color-accent-blue)));
 
     font-size: 1.5rem;
     line-height: 1;
@@ -153,12 +153,12 @@
 }
 
 .dialog-close:hover {
-    background: var(--color-accent-blue);
+    background: var(--accent, var(--color-accent-blue));
     color: var(--color-base);
 }
 
 .dialog-close:focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 2px solid var(--accent, var(--color-brand));
     outline-offset: 3px;
 }
 
