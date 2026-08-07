@@ -111,7 +111,10 @@ function initResizeHandler() {
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(renderPath, 100);
+    resizeTimer = setTimeout(() => {
+      renderActions();
+      renderPath();
+    }, 100);
   });
 }
 

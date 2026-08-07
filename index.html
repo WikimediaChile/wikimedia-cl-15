@@ -3,6 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/Wikimedia-logo.svg" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
         <title>Wikimedia Chile — 15 años</title>
         <style>
             body {
@@ -22,11 +24,14 @@
                         document.documentElement.scrollHeight -
                         document.documentElement.clientHeight;
                     const percentage = pixels / height;
-                    document.getElementById("progress").style.transform =
-                        `scaleX(${percentage})`;
+                    const progressEl = document.getElementById("progress");
+                    const maskSize = `${percentage * 100}% 100%`;
+                    progressEl.style.maskSize = maskSize;
+                    progressEl.style.webkitMaskSize = maskSize;
                 });
             }
         </script>
+        <!--<div id="progress"></div>-->
         <div id="progress"></div>
         <div id="app">
             <header class="site-header">
