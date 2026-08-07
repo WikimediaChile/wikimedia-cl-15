@@ -5,6 +5,7 @@ import { initDialog, openDialogById } from "./dialog.js";
 import { initFilters, renderActions } from "./filters.js";
 
 const timelineEl = document.querySelector("#timeline");
+const LAYOUT_PATTERN = ["center", "left", "right"];
 
 const CATEGORY_COLORS = {
   institucional: "purple",
@@ -26,10 +27,9 @@ function getCategoryColor(category) {
 }
 
 function renderTimeline() {
-  const layoutPattern = ["center", "left", "right"];
   timelineEl.innerHTML = hitos
     .map((hito, index) => {
-      const layout = layoutPattern[index % layoutPattern.length];
+      const layout = LAYOUT_PATTERN[index % LAYOUT_PATTERN.length];
       const markerPosition = layout === "center" ? "hito--marker-bottom" : "";
       const accent = CATEGORY_ACCENTS[getCategoryColor(hito.category)];
 
@@ -64,17 +64,15 @@ function renderTimeline() {
 
 function initApp() {
   initTheme();
-
   renderTimeline();
-
   initDialog();
   initFilters();
-
   initResizeHandler();
   initAnimations();
 
   const params = new URLSearchParams(window.location.search);
   const hitoId = params.get("hito");
+  
   if (hitoId) {
     setTimeout(() => openDialogById(hitoId), 600);
   }
@@ -117,7 +115,5 @@ function initResizeHandler() {
     }, 100);
   });
 }
-
-
 
 initApp();

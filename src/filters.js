@@ -39,10 +39,22 @@ function renderVisible(filterType, query, filterCategory) {
   const visibleEls = document.querySelectorAll(".hito:not(.hito--hidden)");
   visibleEls.forEach((el, index) => {
     const layout = layoutPattern[index % layoutPattern.length];
-    el.classList.remove("hito--left", "hito--center", "hito--right");
+
+    el.classList.remove(
+      "hito--left",
+      "hito--center",
+      "hito--right",
+      "hito--marker-bottom",
+    );
+
     el.classList.add(`hito--${layout}`);
+
+    if (layout === "center") {
+      el.classList.add("hito--marker-bottom");
+    }
   });
 
+  renderActions();
   renderPath();
 }
 
@@ -119,7 +131,11 @@ export function renderActions() {
     const bodyElement = hitoElement.querySelector(".hito-body");
     const actionsElement = hitoElement.querySelector(".hito-actions");
 
+    if (!bodyElement || !actionsElement) return;
+
     const truncated = isTextTruncated(bodyElement);
+
+    actionsElement.innerHTML = "";
 
     if (shouldShowAction(hito, truncated)) {
       actionsElement.innerHTML = `

@@ -99,11 +99,6 @@ function handleClose() {
 
 export function initDialog() {
   document.querySelector("#timeline").addEventListener("click", handleHitoAction);
-  document.querySelector("#timeline").addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      handleHitoAction(event);
-    }
-  });
 
   closeButtonEl.addEventListener("click", handleClose);
 

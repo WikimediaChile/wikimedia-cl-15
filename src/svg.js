@@ -5,7 +5,6 @@ let animated = false;
 
 const MOBILE_QUERY = "(max-width: 1024px)";
 const MOBILE_AMPLITUDE = 26;
-const MOBILE_WAVELENGTH = 2;
 
 function isMobile() {
   return window.matchMedia(MOBILE_QUERY).matches;
