@@ -10,8 +10,9 @@ Micrositio conmemorativo por los 15 años de Wikimedia Chile. Línea de tiempo i
 
 ## Requisitos
 
-- Node.js >= 18
-- `pnpm` ([instalación](https://pnpm.io/installation))
+- Node.js >= 20.19 o >= 22.12
+- `pnpm`
+
 
 ## Desarrollo
 
@@ -32,63 +33,57 @@ pnpm run dev --host   # para acceder desde otros dispositivos
 pnpm run build
 pnpm run preview
 ```
-
-## Ramas
-
-| Rama | Descripción |
-|------|-------------|
-| `test/revision-errores` | Rama base. Timeline en grid 3 columnas con trazado SVG curvo animado. |
-| `test/flex-alternado` | Timeline en flex alternado (izquierda/derecha), sin grid ni `hashOffset`. |
-| `test/timeline-elegante` | Diseño elegante: ícono-centro, badge de fecha, card, sin SVG path. |
-| `test/timeline-carretera` | Timeline con trazado zigzag / curva Bézier suave e ítems posicionados absolutos. |
-| `test/refactor-estructural` | Experimental, congelada. |
-| `master` | Estable, desactualizada. |
-
-Para clonar y probar una rama:
+Clonar el repositorio:
 
 ```bash
-git clone https://github.com/tromvn/wikimedia-cl-15.git
+git clone https://github.com/WikimediaChile/wikimedia-cl-15.git
 cd wikimedia-cl-15
-git checkout <rama>
 pnpm install
 pnpm run dev
 ```
 
 ## Estructura
 
+```text
+.
+├── index.html
+├── package.json
+├── vite.config.js
+├── public/
+│   ├── Wikimedia-logo.svg
+│   ├── favicon.png
+│   └── A_view_towards_Torres_Del_Paine.jpg
+└── src/
+    ├── main.js              # Punto de entrada e inicialización
+    ├── data.js              # Carga y procesamiento de hitos
+    ├── filters.js           # Búsqueda y filtros
+    ├── dialog.js            # Modal con <dialog>
+    ├── svg.js               # Trazado SVG de la línea de tiempo
+    ├── style.css            # Punto de entrada CSS
+    ├── data/
+    │   └── hitos.json       # Fuente de datos de los hitos
+    ├── styles/
+    │   ├── theme.css        # Variables de diseño
+    │   ├── base.css         # Reset y tipografía
+    │   ├── layout.css       # Layout general
+    │   ├── header.css       # Header
+    │   ├── hero.css         # Hero con numeral "15"
+    │   ├── footer.css       # Footer
+    │   ├── timeline.css     # Línea de tiempo y tarjetas
+    │   └── dialog.css       # Panel modal
+    └── assets/
+        ├── icon-*.svg       # Íconos por categoría
+        └── ornamento-*.svg  # Decoraciones del hero
 ```
-src/
-├── main.js              # Punto de entrada, render de timeline
-├── data.js              # Datos, iconos, filtrado
-├── filters.js           # Búsqueda y filtros
-├── dialog.js            # Modal con <dialog>
-├── style.css            # Punto de entrada CSS
-├── styles/
-│   ├── theme.css        # Variables de diseño
-│   ├── base.css         # Reset y tipografía
-│   ├── layout.css       # .site-main
-│   ├── header.css       # Header global
-│   ├── hero.css         # Hero con numeral "15"
-│   ├── footer.css       # Footer
-│   ├── timeline.css     # Estilos de la línea de tiempo
-│   └── dialog.css       # Panel modal
-├── data/
-│   └── hitos.json       # ~30 hitos (única fuente de datos)
-└── assets/
-    ├── icon-*.svg        # Íconos por categoría
-    └── ornamento-*.svg   # Decoraciones del hero
-```
 
-## Funcionalidades comunes
+## Funcionalidades
 
-- Filtro combinado por tipo (Artículos) y categoría (Institucional, Comunidad, Internacional, GLAM, Educación, Datos)
-- Búsqueda con debounce de 200 ms
-- Deep linking: `?hito=id` abre el diálogo automáticamente
-- Dialog nativo `<dialog>` con foco restaurado al cerrar
-- Animaciones de entrada escalonadas
-
-## Por mejorar
-
-- Diseño y posición de los dialogs
-- Diseño visual de las tarjetas
-- Paleta de colores
+- Línea de tiempo interactiva con trazado SVG.
+- Búsqueda de hitos por texto.
+- Filtro por categoría: Institucional, Comunidad, Internacional, GLAM, Educación y Datos.
+- Filtro para mostrar hitos con contenido adicional.
+- Diálogo con información ampliada de cada hito.
+- Enlaces directos a hitos mediante el parámetro `?hito=id`.
+- Soporte para imágenes, enlaces externos y videos de YouTube.
+- Diseño responsivo para escritorio y dispositivos móviles.
+- Modo claro y oscuro.
