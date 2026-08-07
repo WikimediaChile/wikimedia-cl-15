@@ -1,30 +1,39 @@
 /* ===== Progress Line ===== */
 #progress {
     position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:0.2rem;
-    background:var(--color-accent-blue);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0.2rem;
     z-index: 9999;
-    transform-origin: 0 50%;
-    transform-origin: left;
-    transform: scaleX(0);
+    background: linear-gradient(
+        135deg,
+        var(--color-brand),
+        var(--color-accent-blue)
+    );
+    -webkit-mask-image: linear-gradient(#000, #000);
+    -webkit-mask-size: 0% 100%;
+    -webkit-mask-position: left center;
+    -webkit-mask-repeat: no-repeat;
+    mask-image: linear-gradient(#000, #000);
+    mask-size: 0% 100%;
+    mask-position: left center;
+    mask-repeat: no-repeat;
 }
-
-@supports (animation-timeline: scroll()) {
-    #progress {
-        animation: growProgress linear;
-        animation-timeline: scroll();
-    }
-}
-
-@keyframes growProgress {
+@keyframes progressReveal {
     from {
-        transform: scaleX(0);
+        -webkit-mask-size: 0% 100%;
+        mask-size: 0% 100%;
     }
     to {
-        transform: scaleX(1);
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+    }
+}
+@supports (animation-timeline: scroll()) {
+    #progress {
+        animation: progressReveal linear;
+        animation-timeline: scroll();
     }
 }
 
